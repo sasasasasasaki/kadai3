@@ -1,0 +1,74 @@
+<%=   flash[:alert]  %>
+
+<div class="container"> 
+<div class="row"> 
+
+<div class="col-md-3">
+<%= render 'books/list', book: @new_book,user: @user %>
+</div>
+
+<div class="col-md-8 offset-md-1">
+   <h2>Books</h2>
+
+<div class="container"> 
+<div class="row"> 
+   <table class="table table-hover table-inverse">
+     <thead>
+      <tr>
+          <th></th>
+        <th>Title</th>
+        <th>Opinion</th>
+        <th olspan="3"></th>
+      </tr>
+
+     </thead>
+
+　     <tbody>
+　         <% @post_book.each do |post_book| %>
+
+               <td>
+                 <%= link_to user_path(@user.id) do %>
+                          <%= image_tag @user.get_profile_image, size: "100x100" %>
+                       <% end %>
+               </td>
+
+         <td>
+　         <p>
+　         <%= link_to book_path(post_book.id) do %>
+ 　　  　　     　<%= post_book.title%>
+ 　　　    　　<% end %>
+ 　　      　</p>
+ 　　    　</td>
+
+         <td>
+           <p><%= post_book.body %></p>
+         </td>
+
+       <td>
+           <% if @post_book == current_user %>
+         <span>
+           <%= link_to "Edit", edit_book_path(post_book.id) %>
+         </span>
+           <% end %>
+       </td>
+
+       <td>
+           <% if @post_book == current_user %>
+        <span>
+           <%= link_to "Destroy", user_path(post_book.id), method: :delete, "data-confirm btn-block" => "Are you sure?"%>
+       </td>
+           <% end %>
+        </span>
+
+
+
+       </tr>
+
+                        <% end %>
+　     </tbody>
+    </table>
+   
+   
+</div>
+</div>
+</div>

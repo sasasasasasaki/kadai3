@@ -1,0 +1,65 @@
+<%=   flash[:alert]  %>
+
+<div class="container">
+<div class="row">
+<% if @book.errors.any? %>
+  <%= @book.errors.count %> error prohibited this obj from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<div class="col-md-3">
+<%= render 'books/list', book: @book,user: @user%>
+</div>
+
+<div class="col-md-8 offset-md-1">
+
+<h2>Books</h2>
+
+   <table class="table table-hover table-inverse">
+     <thead>
+      <tr>
+      <th olspan="3"></th>
+      <th><h4>Title</h4></th>
+      <th><h4>Opinion</h4></th>
+      <th olspan="3"></th>
+      </tr>
+
+     </thead>
+
+    <tbody>
+　         <% @books.each do |post_book| %>
+       <tr>
+
+           <td>
+              <p>
+              <%= link_to user_path(post_book.user) do %>
+                 <%= image_tag post_book.user.get_profile_image, size: "100x100" %>
+              <% end %>
+              </p>
+           </td>
+
+         <td>
+　         <p>
+　         <%= link_to book_path(post_book.id) do %>
+ 　　  　　     　<%= post_book.title%>
+ 　　　    　　<% end %>
+ 　　      　</p>
+ 　　    　</td>
+
+         <td>
+           <p><%= post_book.body %></p>
+
+
+       </tr>
+
+           <% end %>
+　   </tbody>
+   </table>
+
+</div>
+</div>
